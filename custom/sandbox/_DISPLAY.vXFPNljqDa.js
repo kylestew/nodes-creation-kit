@@ -42,11 +42,11 @@ module.exports = (node, graph) => {
     node.cook = () => {
         cookUp(node)
 
-        if (dataIn.value === undefined) return
+        const data = dataIn.value || { pts: [], geo: []}
 
-        if (dataIn.value.ctx != null) {
+        if (data.ctx != null) {
             // TEX context
-            const offscreenCanvas = dataIn.value.ctx.canvas
+            const offscreenCanvas = data.ctx.canvas
             canvas.width = offscreenCanvas.width
             canvas.height = offscreenCanvas.height
 
@@ -59,26 +59,30 @@ module.exports = (node, graph) => {
             canvas.height = 800
             const ctx = canvas.getContext('2d')
             ctx.fillStyle = '#000000'
-            ctx.fillRect(0, 0, 800, 800)
+            ctx.fillRect(0, 0, canvas.width, canvas.height)
 
             // Determine the bounds of all points
-            const pts = dataIn.value.pts
-            let minX = Infinity,
-                maxX = -Infinity,
-                minY = Infinity,
-                maxY = -Infinity
-            pts.forEach((pt) => {
-                if (pt.x < minX) minX = pt.x
-                if (pt.x > maxX) maxX = pt.x
-                if (pt.y < minY) minY = pt.y
-                if (pt.y > maxY) maxY = pt.y
-            })
-            let min = Math.min(minX, minY)
-            let max = Math.max(maxX, maxY)
-            let range = max - min
-            setCanvasRange(ctx, min - range * 0.1, max + range * 0.1)
-
-            drawDebugGeometry(ctx, dataIn.value, range * 0.005)
+            if (data.pts.length == 0) {
+                setCanvasRange(ctx, -1.2, 1.2)
+                drawDebugGeometry(ctx, data, 0.01)
+            } else {
+                const pts = data.pts
+                let minX = Infinity,
+                    maxX = -Infinity,
+                    minY = Infinity,
+                    maxY = -Infinity
+                pts.forEach((pt) => {
+                    if (pt.x < minX) minX = pt.x
+                    if (pt.x > maxX) maxX = pt.x
+                    if (pt.y < minY) minY = pt.y
+                    if (pt.y > maxY) maxY = pt.y
+                })
+                let min = Math.min(minX, minY)
+                let max = Math.max(maxX, maxY)
+                let range = max - min
+                setCanvasRange(ctx, min - range * 0.1, max + range * 0.1)
+                drawDebugGeometry(ctx, data, range * 0.006)
+            }
         }
     }
 }
@@ -98,7 +102,7 @@ function drawDebugGeometry(ctx, data, pointMarkerSize = 0.01) {
     const polys = data.geo
 
     // Draw Cartesian grid
-    drawCartesianGrid(ctx, pointMarkerSize / 2.0)
+    drawCartesianGrid(ctx, pointMarkerSize / 8.0)
 
     // for every geo instance, draw it
     for (const geo of polys) {
@@ -122,11 +126,11 @@ function drawDebugGeometry(ctx, data, pointMarkerSize = 0.01) {
         if (geo.closed) {
             ctx.closePath()
             // apply style attribs (or defaults)
-            ctx.fillStyle = '#ffffff33'
+            ctx.fillStyle = '#ffffff18'
             ctx.fill()
         }
         // always stroke outline
-        ctx.strokeStyle = '#ff0000'
+        ctx.strokeStyle = '#ff000066'
         ctx.lineWidth = pointMarkerSize / 2.0
         ctx.stroke()
     }
@@ -144,7 +148,7 @@ function drawDebugGeometry(ctx, data, pointMarkerSize = 0.01) {
 function drawCartesianGrid(ctx, lineWidth, scale = 1) {
     const majorSpacing = 1 * scale;   // Major ticks every 1 unit
     const minorSpacing = 0.2 * scale; // Minor ticks every 0.1 unit
-    const range = 2 * scale;          // Grid extends from -2 to +2 units
+    const range = 4 * scale;          // Grid extends from -2 to +2 units
 
     ctx.strokeStyle = '#bbb';
     ctx.lineWidth = lineWidth / 2.0;
@@ -167,7 +171,7 @@ function drawCartesianGrid(ctx, lineWidth, scale = 1) {
 
     // Central Axis
     ctx.lineWidth = lineWidth;
-    ctx.strokeStyle = '#fff'; // Major lines are darker
+    ctx.strokeStyle = '#0000ff'; // Major lines are darker
     for (let x = -range; x <= range; x += majorSpacing) {
         drawLine(ctx, 0, -range, 0, range); // vert
         drawLine(ctx, -range, 0, range, 0); // horiz

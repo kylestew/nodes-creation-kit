@@ -26,13 +26,3 @@ module.exports = (node, graph) => {
         node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`
     }
 }
-
-function cookUp(node) {
-    node.ports
-        .filter((port) => port.dir === 0 && port.source != null)
-        .forEach((port) => {
-            if (typeof port.source.node.cook === 'function') {
-                port.source.node.cook()
-            }
-        })
-}

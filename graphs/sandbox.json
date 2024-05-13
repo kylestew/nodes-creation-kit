@@ -4,33 +4,10 @@
   "name": "sandbox",
   "nodes": [
     {
-      "id": "akZfiJqYv",
-      "name": "geo_Line",
-      "x": -137,
-      "y": -658,
-      "templateName": "Custom",
-      "params": [
-        {
-          "name": "a",
-          "value": [
-            0,
-            0
-          ]
-        },
-        {
-          "name": "b",
-          "value": [
-            1,
-            1
-          ]
-        }
-      ]
-    },
-    {
       "id": "KJvc2obvma",
       "name": "geo_color",
-      "x": -207,
-      "y": -309,
+      "x": -376,
+      "y": -523,
       "templateName": "Custom",
       "params": [
         {
@@ -54,8 +31,8 @@
     {
       "id": "X--wN8g2U3",
       "name": "_empty",
-      "x": 252,
-      "y": -774,
+      "x": -392,
+      "y": -748,
       "templateName": "_empty",
       "params": [
         {
@@ -81,49 +58,10 @@
       ]
     },
     {
-      "id": "hSRExQu0v-",
-      "name": "geo_range2d",
-      "x": 15,
-      "y": -658,
-      "templateName": "Custom",
-      "params": [
-        {
-          "name": "startX",
-          "value": -1
-        },
-        {
-          "name": "endX",
-          "value": 1
-        },
-        {
-          "name": "startY",
-          "value": -1
-        },
-        {
-          "name": "endY",
-          "value": 1
-        },
-        {
-          "name": "stepX",
-          "source": {
-            "id": "sOq_lRVq_",
-            "port": "value"
-          }
-        },
-        {
-          "name": "stepY",
-          "source": {
-            "id": "sOq_lRVq_",
-            "port": "value"
-          }
-        }
-      ]
-    },
-    {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": 266,
-      "y": -621,
+      "x": 261,
+      "y": -757,
       "templateName": "Custom",
       "params": [
         {
@@ -155,21 +93,21 @@
     {
       "id": "vXFPNljqDa",
       "name": "_DISPLAY",
-      "x": 42,
-      "y": -202,
+      "x": 31,
+      "y": -372,
       "templateName": "Custom",
       "params": [
         {
           "name": "data",
           "source": {
-            "id": "cB-972E8a",
+            "id": "2MPgjuMyI",
             "port": "out"
           }
         },
         {
           "name": "live",
           "public": true,
-          "value": false
+          "value": true
         },
         {
           "name": "RUN",
@@ -180,8 +118,8 @@
     {
       "id": "0r60ivdTh5",
       "name": "geo_toTex",
-      "x": 219,
-      "y": -504,
+      "x": 245,
+      "y": -684,
       "templateName": "Custom",
       "params": [
         {
@@ -199,8 +137,8 @@
     {
       "id": "Vwk6BriGv",
       "name": "geo_copyToPoints",
-      "x": -230,
-      "y": -380,
+      "x": -388,
+      "y": -391,
       "templateName": "Custom",
       "params": [
         {
@@ -242,8 +180,8 @@
     {
       "id": "_vP_YKOVh",
       "name": "geo_attribCreate",
-      "x": -225,
-      "y": -526,
+      "x": -379,
+      "y": -327,
       "templateName": "Custom",
       "params": [
         {
@@ -267,8 +205,8 @@
     {
       "id": "HKf7XUCC8",
       "name": "geo_pointWrangle",
-      "x": -222,
-      "y": -448,
+      "x": -380,
+      "y": -451,
       "templateName": "Custom",
       "params": [
         {
@@ -279,25 +217,34 @@
       ]
     },
     {
-      "id": "cB-972E8a",
-      "name": "geo_merge",
-      "x": 25,
-      "y": -515,
+      "id": "2MPgjuMyI",
+      "name": "geo_Grid",
+      "x": 32,
+      "y": -623,
       "templateName": "Custom",
       "params": [
         {
-          "name": "data0",
-          "source": {
-            "id": "akZfiJqYv",
-            "port": "out"
-          }
+          "name": "centerPt",
+          "value": [
+            0,
+            0
+          ]
         },
         {
-          "name": "data1",
-          "source": {
-            "id": "X--wN8g2U3",
-            "port": "out"
-          }
+          "name": "width",
+          "value": 2
+        },
+        {
+          "name": "height",
+          "value": 2
+        },
+        {
+          "name": "rows",
+          "value": 10
+        },
+        {
+          "name": "cols",
+          "value": 10
         }
       ]
     }
@@ -305,8 +252,8 @@
   "comments": [
     {
       "id": "WdQlV3AG6",
-      "x": -268,
-      "y": -189,
+      "x": -271,
+      "y": -232,
       "width": 180,
       "height": 50,
       "fontSize": 10,
