@@ -1,0 +1,23 @@
+{
+  "theme": "Default",
+  "currentGraph": "sandbox",
+  "editorTheme": "Atom One Dark",
+  "editorTabSize": 4,
+  "editorFontSize": 16,
+  "editorMinimap": false,
+  "editorWordWrap": "off",
+  "editorWordWrapColumn": 80,
+  "hideFullscreenGui": false,
+  "graphMetadata": {
+    "sandbox": {
+      "offset": [
+        -214.62895635679547,
+        90.01770361178656
+      ],
+      "zoomLevel": 1.4034340729959731,
+      "sceneRatio": 0.8577045497097922,
+      "canvasRatio": 0.5375,
+      "layout": "vertical-compact"
+    }
+  }
+}

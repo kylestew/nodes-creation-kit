@@ -1,5 +1,5 @@
 {
-    "name": "sandbox",
+    "name": "nodes-creation-kit",
     "description": "Getting started with Nodes.",
     "private": true,
     "dependencies": {
