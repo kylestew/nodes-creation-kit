@@ -9,14 +9,6 @@ module.exports = (node, graph) => {
     const stepY = node.in("stepY", 0.25, {min: 0.01})
 
     node.cook = () => {
-        node.ports
-            .filter((port) => port.dir === 0 && port.source != null)
-            .forEach((port) => {
-                if (typeof port.source.node.cook === 'function') {
-                    port.source.node.cook()
-                }
-            })
-
         let data = {
             pts: [],
             geo: []
@@ -24,7 +16,7 @@ module.exports = (node, graph) => {
 
         for (let y = startY.value; y < endY.value; y += stepY.value) {
             for (let x = startX.value; x < endX.value; x += stepX.value) {
-                data.pts.push([x, y])
+                data.pts.push({x, y})
             }
         }
 

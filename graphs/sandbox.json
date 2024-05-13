@@ -27,40 +27,25 @@
       ]
     },
     {
-      "id": "B918dvx5jJ",
-      "name": "_NULL",
-      "x": 247,
-      "y": -199,
+      "id": "KJvc2obvma",
+      "name": "geo_color",
+      "x": -74,
+      "y": -253,
       "templateName": "Custom",
       "params": [
         {
           "name": "data"
         },
         {
-          "name": "RUN"
-        }
-      ]
-    },
-    {
-      "id": "KJvc2obvma",
-      "name": "geo_setGeoColor",
-      "x": -183,
-      "y": -400,
-      "templateName": "Custom",
-      "params": [
-        {
-          "name": "data",
-          "source": {
-            "id": "akZfiJqYv",
-            "port": "out"
-          }
+          "name": "data type",
+          "value": "geo"
         },
         {
           "name": "color",
           "value": [
-            0.0196078431372549,
-            1,
-            0.7215686274509804,
+            0.11372549019607843,
+            0.9686274509803922,
+            0.7254901960784313,
             1
           ]
         }
@@ -69,9 +54,9 @@
     {
       "id": "X--wN8g2U3",
       "name": "_empty",
-      "x": 322,
-      "y": -404,
-      "templateName": "Custom",
+      "x": 497,
+      "y": -373,
+      "templateName": "_empty",
       "params": [
         {
           "name": "data"
@@ -98,8 +83,8 @@
     {
       "id": "hSRExQu0v-",
       "name": "geo_range2d",
-      "x": 275,
-      "y": -497,
+      "x": 0,
+      "y": -505,
       "templateName": "Custom",
       "params": [
         {
@@ -131,8 +116,8 @@
     {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": 60,
-      "y": -500,
+      "x": 289,
+      "y": -443,
       "templateName": "Custom",
       "params": [
         {
@@ -153,9 +138,9 @@
         {
           "name": "clearColor",
           "value": [
-            0.5843137254901961,
-            0.17647058823529413,
-            0.17647058823529413,
+            0.43137254901960786,
+            0.396078431372549,
+            0.9019607843137255,
             1
           ]
         }
@@ -164,16 +149,16 @@
     {
       "id": "vXFPNljqDa",
       "name": "_DISPLAY",
-      "x": 57,
-      "y": -227,
+      "x": 98,
+      "y": -142,
       "templateName": "Custom",
       "params": [
         {
-          "name": "data",
-          "source": {
-            "id": "0r60ivdTh5",
-            "port": "out"
-          }
+          "name": "data"
+        },
+        {
+          "name": "live",
+          "value": false
         },
         {
           "name": "RUN"
@@ -183,16 +168,12 @@
     {
       "id": "0r60ivdTh5",
       "name": "geo_toTex",
-      "x": 59,
-      "y": -301,
+      "x": 280,
+      "y": -253,
       "templateName": "Custom",
       "params": [
         {
-          "name": "geoData",
-          "source": {
-            "id": "X--wN8g2U3",
-            "port": "out"
-          }
+          "name": "geoData"
         },
         {
           "name": "texData",
@@ -200,6 +181,35 @@
             "id": "JbuyNd2TBb",
             "port": "out"
           }
+        }
+      ]
+    },
+    {
+      "id": "Vwk6BriGv",
+      "name": "geo_copyToPoints",
+      "x": -76,
+      "y": -337,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "data"
+        },
+        {
+          "name": "width",
+          "value": 1
+        },
+        {
+          "name": "height",
+          "value": 1
+        },
+        {
+          "name": "color",
+          "value": [
+            1,
+            0,
+            0,
+            1
+          ]
         }
       ]
     }
