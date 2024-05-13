@@ -1,10 +1,10 @@
 {
-  "id": "ac7bca20-1cdf-11ea-afd8-011be48ef2ca",
+  "id": "d802bd80-110d-11ef-a936-33d712d227ea",
   "version": "1.0.0-beta.2",
-  "name": "hello-world",
+  "name": "sandbox",
   "nodes": [
     {
-      "id": "QSedg3ISY",
+      "id": "akZfiJqYv",
       "name": "geo_Line",
       "x": -184,
       "y": -503,
@@ -27,10 +27,10 @@
       ]
     },
     {
-      "id": "zif_UARy_",
+      "id": "B918dvx5jJ",
       "name": "_NULL",
-      "x": -187,
-      "y": -201,
+      "x": 247,
+      "y": -199,
       "templateName": "Custom",
       "params": [
         {
@@ -42,7 +42,7 @@
       ]
     },
     {
-      "id": "0ViWO9nCk",
+      "id": "KJvc2obvma",
       "name": "geo_setGeoColor",
       "x": -183,
       "y": -400,
@@ -51,7 +51,7 @@
         {
           "name": "data",
           "source": {
-            "id": "QSedg3ISY",
+            "id": "akZfiJqYv",
             "port": "out"
           }
         },
@@ -67,28 +67,36 @@
       ]
     },
     {
-      "id": "pR6cfO1Jc",
+      "id": "X--wN8g2U3",
       "name": "_empty",
-      "x": 323,
-      "y": -403,
-      "templateName": "_empty",
+      "x": 322,
+      "y": -404,
+      "templateName": "Custom",
       "params": [
         {
           "name": "data"
         },
         {
+          "name": "width",
+          "value": 1
+        },
+        {
+          "name": "height",
+          "value": 1
+        },
+        {
           "name": "color",
           "value": [
             1,
-            1,
-            1,
+            0,
+            0,
             1
           ]
         }
       ]
     },
     {
-      "id": "kuhHwhgnH",
+      "id": "hSRExQu0v-",
       "name": "geo_range2d",
       "x": 275,
       "y": -497,
@@ -121,7 +129,7 @@
       ]
     },
     {
-      "id": "xfT1Da-S0",
+      "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
       "x": 60,
       "y": -500,
@@ -154,7 +162,7 @@
       ]
     },
     {
-      "id": "uGYRxY3Eo",
+      "id": "vXFPNljqDa",
       "name": "_DISPLAY",
       "x": 57,
       "y": -227,
@@ -163,7 +171,7 @@
         {
           "name": "data",
           "source": {
-            "id": "8ihbmK1Fi",
+            "id": "0r60ivdTh5",
             "port": "out"
           }
         },
@@ -173,7 +181,7 @@
       ]
     },
     {
-      "id": "8ihbmK1Fi",
+      "id": "0r60ivdTh5",
       "name": "geo_toTex",
       "x": 59,
       "y": -301,
@@ -182,14 +190,14 @@
         {
           "name": "geoData",
           "source": {
-            "id": "0ViWO9nCk",
+            "id": "X--wN8g2U3",
             "port": "out"
           }
         },
         {
           "name": "texData",
           "source": {
-            "id": "xfT1Da-S0",
+            "id": "JbuyNd2TBb",
             "port": "out"
           }
         }
