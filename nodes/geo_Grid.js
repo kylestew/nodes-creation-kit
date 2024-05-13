@@ -52,8 +52,6 @@ module.exports = (node, graph) => {
             }
         }
 
-        console.log(data)
-
         dataOut.setValue(data)
         node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`
     }

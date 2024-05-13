@@ -6,8 +6,8 @@
     {
       "id": "KJvc2obvma",
       "name": "geo_color",
-      "x": -376,
-      "y": -523,
+      "x": -195,
+      "y": -671,
       "templateName": "Custom",
       "params": [
         {
@@ -31,8 +31,8 @@
     {
       "id": "X--wN8g2U3",
       "name": "_empty",
-      "x": -392,
-      "y": -748,
+      "x": -194,
+      "y": -763,
       "templateName": "_empty",
       "params": [
         {
@@ -60,8 +60,8 @@
     {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": 261,
-      "y": -757,
+      "x": 217,
+      "y": -765,
       "templateName": "Custom",
       "params": [
         {
@@ -100,7 +100,7 @@
         {
           "name": "data",
           "source": {
-            "id": "2MPgjuMyI",
+            "id": "6_vDQinCE",
             "port": "out"
           }
         },
@@ -118,8 +118,8 @@
     {
       "id": "0r60ivdTh5",
       "name": "geo_toTex",
-      "x": 245,
-      "y": -684,
+      "x": 217,
+      "y": -698,
       "templateName": "Custom",
       "params": [
         {
@@ -137,8 +137,8 @@
     {
       "id": "Vwk6BriGv",
       "name": "geo_copyToPoints",
-      "x": -388,
-      "y": -391,
+      "x": -203,
+      "y": -579,
       "templateName": "Custom",
       "params": [
         {
@@ -166,8 +166,8 @@
     {
       "id": "sOq_lRVq_",
       "name": "cell size",
-      "x": 20,
-      "y": -777,
+      "x": 3,
+      "y": -767,
       "templateName": "Custom",
       "params": [
         {
@@ -180,8 +180,8 @@
     {
       "id": "_vP_YKOVh",
       "name": "geo_attribCreate",
-      "x": -379,
-      "y": -327,
+      "x": -198,
+      "y": -501,
       "templateName": "Custom",
       "params": [
         {
@@ -204,24 +204,27 @@
     },
     {
       "id": "HKf7XUCC8",
-      "name": "geo_pointWrangle",
-      "x": -380,
-      "y": -451,
+      "name": "geo_Wrangle",
+      "x": 114,
+      "y": -513,
       "templateName": "Custom",
+      "draft": "module.exports = (node, graph) => {\n    const dataIn = node.in('data')\n    const dataOut = node.out('out')\n\n    node.cook = () => {\n        cookUp(node)\n\n        let data = dataIn.value || { pts: [], geo: [] }\n\n        // for each primitive (geo)\n        const centers = data.geo.map(geo => {\n            // find the centroid\n            const sum = geo.pt_indices.reduce((acc, idx) => {\n                return {\n                    x: acc.x + data.pts[idx].x,\n                    y: acc.y + data.pts[idx].y\n                };\n            }, { x: 0, y: 0 });\n            const avg = {\n                x: sum.x / geo.pt_indices.length,\n                y: sum.y / geo.pt_indices.length\n            };\n            \n            return avg\n        });\n\n        // data stream out is just point centers\n        data = { pts: centers, geo: [] }\n\n        dataOut.setValue(data)\n        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`\n    }\n}\n\nfunction cookUp(node) {\n    node.ports\n        .filter((port) => port.dir === 0 && port.source != null)\n        .forEach((port) => {\n            if (typeof port.source.node.cook === 'function') {\n                port.source.node.cook()\n            }\n        })\n}\n",
       "params": [
         {
-          "name": "cellSize",
-          "public": true,
-          "value": 0.25
+          "name": "data",
+          "source": {
+            "id": "pAobF6noK",
+            "port": "out"
+          }
         }
       ]
     },
     {
-      "id": "2MPgjuMyI",
+      "id": "-c4qQ9pZd",
       "name": "geo_Grid",
-      "x": 32,
-      "y": -623,
-      "templateName": "Custom",
+      "x": 42,
+      "y": -665,
+      "templateName": "geo_Grid",
       "params": [
         {
           "name": "centerPt",
@@ -240,11 +243,50 @@
         },
         {
           "name": "rows",
-          "value": 10
+          "value": 4
         },
         {
           "name": "cols",
-          "value": 10
+          "value": 4
+        }
+      ]
+    },
+    {
+      "id": "6_vDQinCE",
+      "name": "geo_Merge",
+      "x": 33,
+      "y": -435,
+      "templateName": "geo_Merge",
+      "params": [
+        {
+          "name": "data0",
+          "source": {
+            "id": "pAobF6noK",
+            "port": "out"
+          }
+        },
+        {
+          "name": "data1",
+          "source": {
+            "id": "HKf7XUCC8",
+            "port": "out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pAobF6noK",
+      "name": "_Null",
+      "x": 39,
+      "y": -590,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "data",
+          "source": {
+            "id": "-c4qQ9pZd",
+            "port": "out"
+          }
         }
       ]
     }
@@ -252,8 +294,8 @@
   "comments": [
     {
       "id": "WdQlV3AG6",
-      "x": -271,
-      "y": -232,
+      "x": -216,
+      "y": -409,
       "width": 180,
       "height": 50,
       "fontSize": 10,
