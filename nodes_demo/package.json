@@ -1,0 +1,8 @@
+{
+  "name": "hello-world",
+  "description": "Getting started with Nodes.",
+  "private": true,
+  "dependencies": {
+    "pex-color": "^1.1.1"
+  }
+}

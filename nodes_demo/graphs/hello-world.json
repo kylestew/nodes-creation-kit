@@ -1,0 +1,116 @@
+{
+  "id": "ac7bca20-1cdf-11ea-afd8-011be48ef2ca",
+  "version": "1.0.0-beta.2",
+  "name": "hello-world",
+  "nodes": [
+    {
+      "id": "oBsaeUZeO",
+      "name": "Say It",
+      "x": 114,
+      "y": -357,
+      "templateName": "Custom",
+      "draft": "module.exports = (node, graph) => {\n  // This node will take your name as input parameter and display alert message\n  // repating it N-times\n\n  // Input name of type string\n  const nameIn = node.in(\"name\", \"\");\n\n  // repeatNumber of type Number\n  const repeatNumberIn = node.in(\"repeatNumber\", 1, {\n    min: 0,\n    max: 10,\n    // round number to 0 digits after the decimal point\n    // effectively allowing only integers as a value\n    precision: 0,\n  });\n\n  // Because second parameter (default value) is a function this will display\n  // a button in the inspector. Clicking the button will call provided function.\n  const sayItBtn = node.in(\"Say it!\", sayIt);\n\n  // variable to store our message to be displayed on sayIt button click\n  let message = \"\";\n\n  function sayIt() {\n    // split message into multiple lines after each explanation mark for readability\n    node.comment = message.replace(/! /g, \"\\n\");\n\n    // display message in the Log inspector panel\n    node.log(message);\n\n    // show browser alert with the message\n    alert(message);\n  }\n\n  // because we have two parameters (name and repeatNumber) that influence\n  // the message it's better to put shared code in one function that will\n  // be called whenver either of them changes\n  function update() {\n    const name = nameIn.value;\n    const repeatNumber = repeatNumberIn.value;\n\n    message = `Hello ${name}! `.repeat(repeatNumber);\n  }\n\n  // call update whenever either of those ports change\n  nameIn.onChange = update;\n  repeatNumberIn.onChange = update;\n};\n",
+      "params": [
+        {
+          "name": "name",
+          "value": ""
+        },
+        {
+          "name": "repeatNumber",
+          "value": 2
+        },
+        {
+          "name": "Say it!"
+        }
+      ]
+    },
+    {
+      "id": "QSedg3ISY",
+      "name": "geo_Line",
+      "x": -201,
+      "y": -432,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "a",
+          "value": [
+            0,
+            0
+          ]
+        },
+        {
+          "name": "b",
+          "value": [
+            1,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "zif_UARy_",
+      "name": "_NULL",
+      "x": -200,
+      "y": -145,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "data",
+          "source": {
+            "id": "0ViWO9nCk",
+            "port": "out"
+          }
+        },
+        {
+          "name": "RUN"
+        }
+      ]
+    },
+    {
+      "id": "0ViWO9nCk",
+      "name": "geo_setGeoColor",
+      "x": -198,
+      "y": -292,
+      "templateName": "Custom",
+      "draft": "module.exports = (node, graph) => {\n    const dataIn = node.in(\"data\");\n    const dataOut = node.out(\"out\");\n\n    const colorIn = node.in(\"color\", [1, 1, 1, 1], { type: \"color\" });\n\n    const { getHex } = require(\"pex-color\");\n\n    node.cook = () => {\n        node.ports\n            .filter((port) => port.dir === 0 && port.source != null)\n            .forEach((port) => {\n                if (typeof port.source.node.cook === 'function') {\n                    port.source.node.cook(); // Only call cook if it's a function\n                }\n            })\n\n        dataOut.setValue(dataIn.value)\n    }\n};",
+      "params": [
+        {
+          "name": "data"
+        },
+        {
+          "name": "color",
+          "value": [
+            1,
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": "HVDw-6-Za",
+      "x": 318,
+      "y": -494,
+      "width": 180,
+      "height": 200,
+      "fontSize": 14,
+      "backgroundColor": [
+        0.1,
+        0.1,
+        0.1,
+        1
+      ],
+      "textColor": [
+        0.7,
+        0.7,
+        0.7,
+        1
+      ],
+      "text": "Approach:\nPull thru values\n\"output\" node has a trigger button that reads values, all nodes read values up the chain, therfore values are pulled down",
+      "collapseFlags": {}
+    }
+  ]
+}
