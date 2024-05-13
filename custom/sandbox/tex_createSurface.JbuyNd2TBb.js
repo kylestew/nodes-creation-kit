@@ -1,3 +1,41 @@
+module.exports = (node, graph) => {
+    const dataOut = node.out('out')
+
+    const width = node.in('width', 1000)
+    const height = node.in('height', 1000)
+    const range = node.in('range', [-1, 1])
+    const clearColor = node.in('clearColor', [1, 1, 1, 1], { type: 'color' })
+
+    const { getHex } = require('pex-color')
+
+    node.cook = () => {
+        node.ports
+            .filter((port) => port.dir === 0 && port.source != null)
+            .forEach((port) => {
+                if (typeof port.source.node.cook === 'function') {
+                    port.source.node.cook()
+                }
+            })
+
+        const w = width.value
+        const h = height.value
+
+        const offscreenCanvas = new OffscreenCanvas(w, h)
+        const offCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true })
+        if (!offCtx) {
+            throw new Error('Could not create OffscreenCanvasRenderingContext2D')
+        }
+
+        offCtx.fillStyle = getHex(clearColor.value)
+        offCtx.fillRect(0, 0, w, h)
+
+        const rng = range.value
+        setCanvasRange(offCtx, rng[0], rng[1])
+
+        dataOut.setValue({ ctx: offCtx })
+    }
+}
+
 function setCanvasRange(ctx, min, max) {
     // Retrieve the canvas dimensions from the context
     const width = ctx.canvas.width
@@ -53,40 +91,3 @@ function setCanvasRange(ctx, min, max) {
     }
 }
 
-module.exports = (node, graph) => {
-    const dataOut = node.out('out')
-
-    const width = node.in('width', 1000)
-    const height = node.in('height', 1000)
-    const range = node.in('range', [-1, 1])
-    const clearColor = node.in('clearColor', [1, 1, 1, 1], { type: 'color' })
-
-    const { getHex } = require('pex-color')
-
-    node.cook = () => {
-        node.ports
-            .filter((port) => port.dir === 0 && port.source != null)
-            .forEach((port) => {
-                if (typeof port.source.node.cook === 'function') {
-                    port.source.node.cook()
-                }
-            })
-
-        const w = width.value
-        const h = height.value
-
-        const offscreenCanvas = new OffscreenCanvas(w, h)
-        const offCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true })
-        if (!offCtx) {
-            throw new Error('Could not create OffscreenCanvasRenderingContext2D')
-        }
-
-        offCtx.fillStyle = getHex(clearColor.value)
-        offCtx.fillRect(0, 0, w, h)
-
-        const rng = range.value
-        setCanvasRange(offCtx, rng[0], rng[1])
-
-        dataOut.setValue({ ctx: offCtx })
-    }
-}

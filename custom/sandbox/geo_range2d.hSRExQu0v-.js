@@ -21,5 +21,6 @@ module.exports = (node, graph) => {
         }
 
         dataOut.setValue(data)
+        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`
     }
 }
