@@ -113,21 +113,22 @@ function drawDebugGeometry(ctx, data, pointMarkerSize = 0.01) {
 
         // draw polyline
         let idx = geo.pt_indices[0]
+        ctx.beginPath();
         ctx.moveTo(pts[idx].x, pts[idx].y)
         for (let i = 1; i < geo.pt_indices.length; i++) {
             idx = geo.pt_indices[i]
             ctx.lineTo(pts[idx].x, pts[idx].y)
         }
-        // if (geo.closed) {
-        //     // apply style attribs (or defaults)
-        //     ctx.fillStyle = geo.color ?? '#000000'
-        //     ctx.fill()
-        // } else {
-        // apply style attribs (or defaults)
-        ctx.strokeStyle = '#ffffff'
+        if (geo.closed) {
+            ctx.closePath()
+            // apply style attribs (or defaults)
+            ctx.fillStyle = '#ffffff33'
+            ctx.fill()
+        }
+        // always stroke outline
+        ctx.strokeStyle = '#ff0000'
         ctx.lineWidth = pointMarkerSize / 2.0
         ctx.stroke()
-        // }
     }
 
     // for every point, draw a marker
@@ -148,7 +149,7 @@ function drawCartesianGrid(ctx, lineWidth, scale = 1) {
     ctx.strokeStyle = '#bbb';
     ctx.lineWidth = lineWidth / 2.0;
 
-    // // Draw minor grid (dashed lines)
+    // Draw minor grid (dashed lines)
     ctx.setLineDash([0.01, 0.01]); // Sets the dashed line pattern
     for (let x = -range; x <= range; x += minorSpacing) {
         drawLine(ctx, x, -range, x, range); // vert

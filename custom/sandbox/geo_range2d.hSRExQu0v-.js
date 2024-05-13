@@ -14,8 +14,8 @@ module.exports = (node, graph) => {
             geo: []
         }
 
-        for (let y = startY.value; y < endY.value; y += stepY.value) {
-            for (let x = startX.value; x < endX.value; x += stepX.value) {
+        for (let y = startY.value; y <= endY.value; y += stepY.value) {
+            for (let x = startX.value; x <= endX.value; x += stepX.value) {
                 data.pts.push({x, y})
             }
         }
