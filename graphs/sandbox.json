@@ -4,61 +4,33 @@
   "name": "sandbox",
   "nodes": [
     {
-      "id": "KJvc2obvma",
-      "name": "geo_Color",
-      "x": -119,
-      "y": -156,
-      "templateName": "geo_Color",
-      "params": [
-        {
-          "name": "data"
-        },
-        {
-          "name": "data type",
-          "value": "geo"
-        },
-        {
-          "name": "color",
-          "value": [
-            0.11372549019607843,
-            0.9686274509803922,
-            0.7254901960784313,
-            1
-          ]
-        }
-      ]
-    },
-    {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": 277,
-      "y": -475,
+      "x": 287,
+      "y": -402,
       "templateName": "Custom",
       "params": [
         {
           "name": "width",
-          "value": 600
+          "value": 1000
         },
         {
           "name": "height",
-          "value": 600
+          "value": 1000
         },
         {
           "name": "range",
           "value": [
-            -1.1,
-            1.1
+            -1.2,
+            1.2
           ]
         },
         {
           "name": "clearColor",
-          "public": true,
-          "value": [
-            0.22745098039215686,
-            0.17647058823529413,
-            0.9411764705882353,
-            1
-          ]
+          "source": {
+            "id": "9d5tb50Dp",
+            "port": "outC"
+          }
         }
       ]
     },
@@ -115,7 +87,7 @@
       "name": "geo_CopyToPoints",
       "x": 53,
       "y": -474,
-      "templateName": "Custom",
+      "templateName": "geo_CopyToPoints",
       "params": [
         {
           "name": "geo",
@@ -143,43 +115,7 @@
         {
           "name": "row cols",
           "public": true,
-          "value": 24
-        }
-      ]
-    },
-    {
-      "id": "_vP_YKOVh",
-      "name": "geo_AttribCreate",
-      "x": -92,
-      "y": -222,
-      "templateName": "Custom",
-      "params": [
-        {
-          "name": "data"
-        },
-        {
-          "name": "data type",
-          "value": "geo"
-        },
-        {
-          "name": "floatName",
-          "value": ""
-        },
-        {
-          "name": "floatValue",
-          "value": 0
-        }
-      ]
-    },
-    {
-      "id": "HKf7XUCC8",
-      "name": "geo_Wrangle",
-      "x": -161,
-      "y": -470,
-      "templateName": "Custom",
-      "params": [
-        {
-          "name": "data"
+          "value": 39
         }
       ]
     },
@@ -303,9 +239,8 @@
       "id": "5MfkUkZY9",
       "name": "geo_StyleAttribs",
       "x": 51,
-      "y": -380,
+      "y": -397,
       "templateName": "Custom",
-      "draft": "module.exports = (node, graph) => {\n    const dataIn = node.in('data')\n    const dataOut = node.out('out')\n\n    const type = node.in(\"data type\", \"point\", { type: \"dropdown\", values: [\"point\", \"geo\"] })\n\n    const colorIn = node.in('color', [1, 1, 1, 1], { type: 'color' })\n    const assignColor = node.in('set color', false)\n\n    const weightIn = node.in('weight', 0.01, { min: 0.0001 })\n    const assignWeight = node.in('set weight', false)\n\n    const { getHex } = require('pex-color')\n\n    node.cook = () => {\n        cookUp(node)\n\n        let data = dataIn.value || { pts: [], geo: [] }\n\n        // if (type.value == \"point\") {\n        //     for (let pt of data.pts) {\n        //         pt['color'] = getHex(colorIn.value)\n        //     }\n        // } else {\n        //     for (let pt of data.geo) {\n        //         pt['color'] = getHex(colorIn.value)\n        //     }\n        // }\n\n        dataOut.setValue(data)\n        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`\n    }\n}\n\nfunction cookUp(node) {\n    node.ports\n        .filter((port) => port.dir === 0 && port.source != null)\n        .forEach((port) => {\n            if (typeof port.source.node.cook === 'function') {\n                port.source.node.cook()\n            }\n        })\n}\n",
       "params": [
         {
           "name": "data",
@@ -316,38 +251,68 @@
         },
         {
           "name": "data type",
-          "value": "point"
+          "value": "geo"
         },
         {
           "name": "color",
-          "value": [
-            1,
-            1,
-            1,
-            1
-          ]
+          "source": {
+            "id": "9d5tb50Dp",
+            "port": "outB"
+          }
         },
         {
           "name": "set color",
-          "value": false
+          "value": true
         },
         {
           "name": "weight",
-          "value": 0.01
+          "public": true,
+          "value": 0.018
         },
         {
           "name": "set weight",
-          "value": false
+          "value": true
         }
       ]
     },
     {
       "id": "9d5tb50Dp",
       "name": "color palette",
-      "x": -131,
-      "y": -600,
+      "x": 283,
+      "y": -488,
       "templateName": "Custom",
-      "params": []
+      "params": [
+        {
+          "name": "colorA",
+          "public": true,
+          "value": [
+            1,
+            0.3803921568627451,
+            0.4196078431372549,
+            1
+          ]
+        },
+        {
+          "name": "colorB",
+          "public": true,
+          "value": [
+            0.9803921568627451,
+            0.9294117647058824,
+            0.5607843137254902,
+            1
+          ]
+        },
+        {
+          "name": "colorC",
+          "public": true,
+          "value": [
+            0.058823529411764705,
+            0.14901960784313725,
+            0.12156862745098039,
+            1
+          ]
+        }
+      ]
     }
   ],
   "comments": []

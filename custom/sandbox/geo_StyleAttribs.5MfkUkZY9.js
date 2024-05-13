@@ -7,7 +7,7 @@ module.exports = (node, graph) => {
     const colorIn = node.in('color', [1, 1, 1, 1], { type: 'color' })
     const assignColor = node.in('set color', false)
 
-    const weightIn = node.in('weight', 0.01, { min: 0.0001 })
+    const weightIn = node.in('weight', 0.01, { min: 0.0001, precision: 4 })
     const assignWeight = node.in('set weight', false)
 
     const { getHex } = require('pex-color')
@@ -17,13 +17,12 @@ module.exports = (node, graph) => {
 
         let data = dataIn.value || { pts: [], geo: [] }
 
-        if (type.value == "point") {
-            for (let pt of data.pts) {
-                pt['color'] = getHex(colorIn.value)
+        for (let thing of type.value == "point" ? data.pts : data.geo) {
+            if (assignColor.value == true) {
+                thing.color = getHex(colorIn.value)
             }
-        } else {
-            for (let pt of data.geo) {
-                pt['color'] = getHex(colorIn.value)
+            if (assignWeight.value == true) {
+                thing.weight = weightIn.value
             }
         }
 
