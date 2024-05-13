@@ -4,8 +4,8 @@ module.exports = (node, graph) => {
     const centerPt = node.in('centerPt', [0, 0])
     const width = node.in('width', 2, { min: 0.01 })
     const height = node.in('height', 2, { min: 0.01 })
-    const rows = node.in("rows", 10, {min: 1})
-    const cols = node.in("cols", 10, {min: 1})
+    const rows = node.in("rows", 10, {precision: 0, min: 1})
+    const cols = node.in("cols", 10, {precision: 0, min: 1})
 
     node.cook = () => {
         let data = {

@@ -1,7 +1,7 @@
 module.exports = (node, graph) => {
     const out = node.out("value")
-    const cellSize = node.in('cellSize', 0.25, { min: 0.01})
-    cellSize.onChange = (val) => {
+    const value = node.in('row cols', 8, { precision: 0, min: 1, max: 64})
+    value.onChange = (val) => {
         out.setValue(val)
         node.comment = val
     };

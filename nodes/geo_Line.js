@@ -15,8 +15,8 @@ module.exports = (node, graph) => {
         const pt0 = aIn.value
         const pt1 = bIn.value
 
-        data.pts.push({ x: pt0[0], y: pt0[1] })
-        data.pts.push({ x: pt1[0], y: pt1[1] })
+        data.pts.push({ x: pt0[0], y: -pt0[1] })
+        data.pts.push({ x: pt1[0], y: -pt1[1] })
         data.geo.push({
             pt_indices: [0, 1],
             closed: false,
@@ -25,4 +25,14 @@ module.exports = (node, graph) => {
         dataOut.setValue(data)
         node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`
     }
+}
+
+function cookUp(node) {
+    node.ports
+        .filter((port) => port.dir === 0 && port.source != null)
+        .forEach((port) => {
+            if (typeof port.source.node.cook === 'function') {
+                port.source.node.cook()
+            }
+        })
 }

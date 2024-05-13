@@ -2,9 +2,20 @@ module.exports = (node, graph) => {
     const dataIn = node.in('data')
     const dataOut = node.out('out')
 
+    const rows = node.in("rows", 10, {precision: 0, min: 1})
+
     node.cook = () => {
         cookUp(node)
-        dataOut.setValue(dataIn.value)
+
+        let data = dataIn.value || { pts: [], geo: [] }
+
+        const scale = 1.0 / rows.value
+        data.pts.forEach(pt => {
+            pt.scale = scale
+        })
+
+        dataOut.setValue(data)
+        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`
     }
 }
 
