@@ -5,10 +5,10 @@
   "nodes": [
     {
       "id": "KJvc2obvma",
-      "name": "geo_color",
-      "x": -202,
-      "y": -645,
-      "templateName": "Custom",
+      "name": "geo_Color",
+      "x": -119,
+      "y": -156,
+      "templateName": "geo_Color",
       "params": [
         {
           "name": "data"
@@ -29,39 +29,10 @@
       ]
     },
     {
-      "id": "X--wN8g2U3",
-      "name": "_empty",
-      "x": -194,
-      "y": -763,
-      "templateName": "_empty",
-      "params": [
-        {
-          "name": "data"
-        },
-        {
-          "name": "width",
-          "value": 1
-        },
-        {
-          "name": "height",
-          "value": 1
-        },
-        {
-          "name": "color",
-          "value": [
-            1,
-            0,
-            0,
-            1
-          ]
-        }
-      ]
-    },
-    {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": -207,
-      "y": -296,
+      "x": 277,
+      "y": -475,
       "templateName": "Custom",
       "params": [
         {
@@ -81,10 +52,11 @@
         },
         {
           "name": "clearColor",
+          "public": true,
           "value": [
-            0.43137254901960786,
-            0.396078431372549,
-            0.9019607843137255,
+            0.22745098039215686,
+            0.17647058823529413,
+            0.9411764705882353,
             1
           ]
         }
@@ -93,14 +65,14 @@
     {
       "id": "vXFPNljqDa",
       "name": "_DISPLAY",
-      "x": 67,
-      "y": -309,
+      "x": 135,
+      "y": -151,
       "templateName": "Custom",
       "params": [
         {
           "name": "data",
           "source": {
-            "id": "Vwk6BriGv",
+            "id": "0r60ivdTh5",
             "port": "out"
           }
         },
@@ -118,12 +90,16 @@
     {
       "id": "0r60ivdTh5",
       "name": "geo_toTex",
-      "x": -207,
-      "y": -229,
+      "x": 136,
+      "y": -236,
       "templateName": "Custom",
       "params": [
         {
-          "name": "geoData"
+          "name": "geoData",
+          "source": {
+            "id": "5MfkUkZY9",
+            "port": "out"
+          }
         },
         {
           "name": "texData",
@@ -137,8 +113,8 @@
     {
       "id": "Vwk6BriGv",
       "name": "geo_CopyToPoints",
-      "x": 87,
-      "y": -463,
+      "x": 53,
+      "y": -474,
       "templateName": "Custom",
       "params": [
         {
@@ -151,7 +127,7 @@
         {
           "name": "points",
           "source": {
-            "id": "ehGysH3I4",
+            "id": "2fU3r80ya",
             "port": "out"
           }
         }
@@ -167,15 +143,15 @@
         {
           "name": "row cols",
           "public": true,
-          "value": 4
+          "value": 24
         }
       ]
     },
     {
       "id": "_vP_YKOVh",
-      "name": "geo_attribCreate",
-      "x": -205,
-      "y": -475,
+      "name": "geo_AttribCreate",
+      "x": -92,
+      "y": -222,
       "templateName": "Custom",
       "params": [
         {
@@ -186,23 +162,21 @@
           "value": "geo"
         },
         {
-          "name": "color",
-          "value": [
-            0.11372549019607843,
-            0.9686274509803922,
-            0.7254901960784313,
-            1
-          ]
+          "name": "floatName",
+          "value": ""
+        },
+        {
+          "name": "floatValue",
+          "value": 0
         }
       ]
     },
     {
       "id": "HKf7XUCC8",
       "name": "geo_Wrangle",
-      "x": -202,
-      "y": -423,
+      "x": -161,
+      "y": -470,
       "templateName": "Custom",
-      "draft": "module.exports = (node, graph) => {\n    const dataIn = node.in('data')\n    const dataOut = node.out('out')\n\n    node.cook = () => {\n        cookUp(node)\n\n        let data = dataIn.value || { pts: [], geo: [] }\n\n        // for each primitive (geo)\n        const centers = data.geo.map(geo => {\n            // find the centroid\n            const sum = geo.pt_indices.reduce((acc, idx) => {\n                return {\n                    x: acc.x + data.pts[idx].x,\n                    y: acc.y + data.pts[idx].y\n                };\n            }, { x: 0, y: 0 });\n            const avg = {\n                x: sum.x / geo.pt_indices.length,\n                y: sum.y / geo.pt_indices.length\n            };\n            \n            return avg\n        });\n\n        // data stream out is just point centers\n        data = { pts: centers, geo: [] }\n\n        dataOut.setValue(data)\n        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`\n    }\n}\n\nfunction cookUp(node) {\n    node.ports\n        .filter((port) => port.dir === 0 && port.source != null)\n        .forEach((port) => {\n            if (typeof port.source.node.cook === 'function') {\n                port.source.node.cook()\n            }\n        })\n}\n",
       "params": [
         {
           "name": "data"
@@ -248,18 +222,6 @@
       ]
     },
     {
-      "id": "pAobF6noK",
-      "name": "_Null",
-      "x": -196,
-      "y": -569,
-      "templateName": "_Null",
-      "params": [
-        {
-          "name": "data"
-        }
-      ]
-    },
-    {
       "id": "HlFE5KqDZ",
       "name": "geo_Centroid",
       "x": 193,
@@ -278,8 +240,8 @@
     {
       "id": "wvJtoMpJa",
       "name": "geo_Line",
-      "x": -9,
-      "y": -757,
+      "x": -5,
+      "y": -759,
       "templateName": "geo_Line",
       "params": [
         {
@@ -299,25 +261,10 @@
       ]
     },
     {
-      "id": "CxI9Qjn6b",
-      "name": "geo_Merge",
-      "x": 216,
-      "y": -418,
-      "templateName": "geo_Merge",
-      "params": [
-        {
-          "name": "data0"
-        },
-        {
-          "name": "data1"
-        }
-      ]
-    },
-    {
       "id": "ehGysH3I4",
       "name": "geo_ScalePts",
       "x": 140,
-      "y": -626,
+      "y": -627,
       "templateName": "Custom",
       "params": [
         {
@@ -335,30 +282,73 @@
           }
         }
       ]
+    },
+    {
+      "id": "2fU3r80ya",
+      "name": "geo_RandomRotate",
+      "x": 144,
+      "y": -561,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "data",
+          "source": {
+            "id": "ehGysH3I4",
+            "port": "out"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5MfkUkZY9",
+      "name": "geo_StyleAttribs",
+      "x": 51,
+      "y": -380,
+      "templateName": "Custom",
+      "draft": "module.exports = (node, graph) => {\n    const dataIn = node.in('data')\n    const dataOut = node.out('out')\n\n    const type = node.in(\"data type\", \"point\", { type: \"dropdown\", values: [\"point\", \"geo\"] })\n\n    const colorIn = node.in('color', [1, 1, 1, 1], { type: 'color' })\n    const assignColor = node.in('set color', false)\n\n    const weightIn = node.in('weight', 0.01, { min: 0.0001 })\n    const assignWeight = node.in('set weight', false)\n\n    const { getHex } = require('pex-color')\n\n    node.cook = () => {\n        cookUp(node)\n\n        let data = dataIn.value || { pts: [], geo: [] }\n\n        // if (type.value == \"point\") {\n        //     for (let pt of data.pts) {\n        //         pt['color'] = getHex(colorIn.value)\n        //     }\n        // } else {\n        //     for (let pt of data.geo) {\n        //         pt['color'] = getHex(colorIn.value)\n        //     }\n        // }\n\n        dataOut.setValue(data)\n        node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`\n    }\n}\n\nfunction cookUp(node) {\n    node.ports\n        .filter((port) => port.dir === 0 && port.source != null)\n        .forEach((port) => {\n            if (typeof port.source.node.cook === 'function') {\n                port.source.node.cook()\n            }\n        })\n}\n",
+      "params": [
+        {
+          "name": "data",
+          "source": {
+            "id": "Vwk6BriGv",
+            "port": "out"
+          }
+        },
+        {
+          "name": "data type",
+          "value": "point"
+        },
+        {
+          "name": "color",
+          "value": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "name": "set color",
+          "value": false
+        },
+        {
+          "name": "weight",
+          "value": 0.01
+        },
+        {
+          "name": "set weight",
+          "value": false
+        }
+      ]
+    },
+    {
+      "id": "9d5tb50Dp",
+      "name": "color palette",
+      "x": -131,
+      "y": -600,
+      "templateName": "Custom",
+      "params": []
     }
   ],
-  "comments": [
-    {
-      "id": "WdQlV3AG6",
-      "x": -223,
-      "y": -383,
-      "width": 180,
-      "height": 50,
-      "fontSize": 10,
-      "backgroundColor": [
-        0.1,
-        0.1,
-        0.1,
-        1
-      ],
-      "textColor": [
-        0.7,
-        0.7,
-        0.7,
-        1
-      ],
-      "text": "copy to point and scale/rotate based on point data?",
-      "collapseFlags": {}
-    }
-  ]
+  "comments": []
 }

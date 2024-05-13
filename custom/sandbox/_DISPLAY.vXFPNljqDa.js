@@ -138,7 +138,7 @@ function drawDebugGeometry(ctx, data, pointMarkerSize = 0.01) {
     // for every point, draw a marker
     for (const pt of pts) {
         ctx.beginPath()
-        ctx.arc(pt.x, pt.y, pointMarkerSize, 0, 2 * Math.PI)
+        ctx.arc(pt.x, pt.y, pointMarkerSize / 1.6, 0, 2 * Math.PI)
         ctx.fillStyle = '#00ff00'
         ctx.fill()
         ctx.closePath()

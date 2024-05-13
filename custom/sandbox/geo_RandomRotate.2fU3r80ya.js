@@ -2,27 +2,15 @@ module.exports = (node, graph) => {
     const dataIn = node.in('data')
     const dataOut = node.out('out')
 
-    const type = node.in("data type", "point", { type: "dropdown", values: ["point", "geo"] })
-
-    const floatName = node.in("floatName", "")
-    const floatValue = node.in('floatValue', 0.0)
-
-    const { getHex } = require('pex-color')
-
     node.cook = () => {
         cookUp(node)
-
         let data = dataIn.value || { pts: [], geo: [] }
 
-        if (type.value == "point") {
-            for (let pt of data.pts) {
-                pt['color'] = getHex(colorIn.value)
+        data.pts.forEach(pt => {
+            if (Math.random() < 0.5) {
+                pt.rotate = Math.PI / 2.0
             }
-        } else {
-            for (let pt of data.geo) {
-                pt['color'] = getHex(colorIn.value)
-            }
-        }
+        })
 
         dataOut.setValue(data)
         node.comment = `pts: ${data.pts.length}, geo: ${data.geo.length}`

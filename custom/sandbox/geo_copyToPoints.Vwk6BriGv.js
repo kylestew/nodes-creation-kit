@@ -18,7 +18,7 @@ module.exports = (node, graph) => {
                 let newPtIndices = [];
                 for (let idx of geo.pt_indices) {
                     const scale = pt.scale || 1.0;
-                    const angle = pt.angle || 0; // assuming angle is in degrees
+                    const angle = pt.rotate || 0; // assuming angle is in degrees
                     
                     // scale
                     let newPt = scalePt(geoData.pts[idx], scale);
@@ -44,10 +44,9 @@ module.exports = (node, graph) => {
 const addPt = (pt0, pt1) => ({x: pt0.x + pt1.x, y: pt0.y + pt1.y});
 const scalePt = (pt, scale) => ({x: pt.x * scale, y: pt.y * scale});
 const rotatePt = (pt, angle) => {
-    const rad = angle * (Math.PI / 180); // convert angle to radians
     return {
-        x: pt.x * Math.cos(rad) - pt.y * Math.sin(rad),
-        y: pt.x * Math.sin(rad) + pt.y * Math.cos(rad)
+        x: pt.x * Math.cos(angle) - pt.y * Math.sin(angle),
+        y: pt.x * Math.sin(angle) + pt.y * Math.cos(angle)
     };
 };
 

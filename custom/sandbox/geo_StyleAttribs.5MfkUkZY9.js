@@ -4,8 +4,11 @@ module.exports = (node, graph) => {
 
     const type = node.in("data type", "point", { type: "dropdown", values: ["point", "geo"] })
 
-    const floatName = node.in("floatName", "")
-    const floatValue = node.in('floatValue', 0.0)
+    const colorIn = node.in('color', [1, 1, 1, 1], { type: 'color' })
+    const assignColor = node.in('set color', false)
+
+    const weightIn = node.in('weight', 0.01, { min: 0.0001 })
+    const assignWeight = node.in('set weight', false)
 
     const { getHex } = require('pex-color')
 

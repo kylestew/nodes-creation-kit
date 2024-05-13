@@ -16,7 +16,6 @@ module.exports = (node, graph) => {
                     y: acc.y + data.pts[idx].y
                 };
             }, { x: 0, y: 0 });
-            
             const avg = {
                 x: sum.x / geo.pt_indices.length,
                 y: sum.y / geo.pt_indices.length
