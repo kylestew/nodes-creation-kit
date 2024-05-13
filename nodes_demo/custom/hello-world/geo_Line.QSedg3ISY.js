@@ -1,30 +1,33 @@
 module.exports = (node, graph) => {
-  const dataOut = node.out("data");
+    const dataOut = node.out("out");
 
-  const aIn = node.in("a", [0, 0])
-  const bIn = node.in("b", [1, 1])
+    const aIn = node.in("a", [0, 0])
+    const bIn = node.in("b", [1, 1])
 
-  // any chages to UI must cause a new value to be set on output port
-  aIn.onChange = emit
-  bIn.onChange = emit
+    node.cook = () => {
+        node.ports
+            .filter((port) => port.dir === 0 && port.source != null)
+            .forEach((port) => {
+                if (typeof port.source.node.cook === 'function') {
+                    port.source.node.cook()
+                }
+            })
 
-  function emit() {
-    let data = {
-      pts: [],
-      geo: []
+        let data = {
+            pts: [],
+            geo: []
+        }
+
+        const pt0 = aIn.value
+        const pt1 = bIn.value
+
+        data.pts.push({x: pt0[0], y: pt0[1]})
+        data.pts.push({x: pt1[0], y: pt1[1]})
+        data.geo.push({
+            pt_indices: [0, 1],
+            closed: false
+        })
+
+        dataOut.setValue(data)
     }
-
-    data.pts.push(aIn.value)
-    data.pts.push(bIn.value)
-    data.geo.push({
-      pt_indices: [0, 1],
-      closed: false
-    })
-
-    dataOut.setValue(data)
-  }
-
-  node.onReady = () => {
-    emit()
-  };
 };

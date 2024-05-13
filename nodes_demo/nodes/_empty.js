@@ -4,8 +4,6 @@ module.exports = (node, graph) => {
 
     const colorIn = node.in('color', [1, 1, 1, 1], { type: 'color' })
 
-    const { getHex } = require('pex-color')
-
     node.cook = () => {
         node.ports
             .filter((port) => port.dir === 0 && port.source != null)
@@ -15,11 +13,6 @@ module.exports = (node, graph) => {
                 }
             })
 
-        let data = dataIn.value
-        for (let pt of data.geo) {
-            pt["color"] = getHex(colorIn.value)
-        }
-    
-        dataOut.setValue(data)
+        dataOut.setValue(dataIn.value)
     }
 }

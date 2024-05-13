@@ -9,12 +9,12 @@ module.exports = (node, graph) => {
     }
 
     node.cook = () => {
-        // connected input ports
         node.ports
             .filter((port) => port.dir === 0 && port.source != null)
             .forEach((port) => {
-                // run cook on them
-                port.source.node.cook()
+                if (typeof port.source.node.cook === 'function') {
+                    port.source.node.cook()
+                }
             })
     }
 }
