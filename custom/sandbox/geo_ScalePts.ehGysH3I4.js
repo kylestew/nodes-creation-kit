@@ -2,6 +2,8 @@ module.exports = (node, graph) => {
     const dataIn = node.in('data')
     const dataOut = node.out('out')
 
+    // doing this in code so we can refernce the dynamic rows variable
+    // basically we are creating an expression
     const rows = node.in("rows", 10, {precision: 0, min: 1})
 
     node.cook = () => {

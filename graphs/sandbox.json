@@ -6,8 +6,8 @@
     {
       "id": "JbuyNd2TBb",
       "name": "tex_createSurface",
-      "x": 287,
-      "y": -402,
+      "x": 289,
+      "y": -324,
       "templateName": "Custom",
       "params": [
         {
@@ -37,8 +37,8 @@
     {
       "id": "vXFPNljqDa",
       "name": "_DISPLAY",
-      "x": 135,
-      "y": -151,
+      "x": 162,
+      "y": -157,
       "templateName": "Custom",
       "params": [
         {
@@ -51,7 +51,7 @@
         {
           "name": "live",
           "public": true,
-          "value": true
+          "value": false
         },
         {
           "name": "RUN",
@@ -62,8 +62,8 @@
     {
       "id": "0r60ivdTh5",
       "name": "geo_toTex",
-      "x": 136,
-      "y": -236,
+      "x": 161,
+      "y": -220,
       "templateName": "Custom",
       "params": [
         {
@@ -85,8 +85,8 @@
     {
       "id": "Vwk6BriGv",
       "name": "geo_CopyToPoints",
-      "x": 53,
-      "y": -474,
+      "x": 55,
+      "y": -396,
       "templateName": "geo_CopyToPoints",
       "params": [
         {
@@ -99,7 +99,7 @@
         {
           "name": "points",
           "source": {
-            "id": "2fU3r80ya",
+            "id": "MgdQ9YbzQ",
             "port": "out"
           }
         }
@@ -108,22 +108,22 @@
     {
       "id": "sOq_lRVq_",
       "name": "row col count",
-      "x": 135,
-      "y": -840,
+      "x": 190,
+      "y": -976,
       "templateName": "Custom",
       "params": [
         {
           "name": "row cols",
           "public": true,
-          "value": 39
+          "value": 24
         }
       ]
     },
     {
       "id": "-c4qQ9pZd",
       "name": "geo_Grid",
-      "x": 192,
-      "y": -760,
+      "x": 247,
+      "y": -895,
       "templateName": "geo_Grid",
       "params": [
         {
@@ -160,8 +160,8 @@
     {
       "id": "HlFE5KqDZ",
       "name": "geo_Centroid",
-      "x": 193,
-      "y": -696,
+      "x": 248,
+      "y": -831,
       "templateName": "geo_Centroid",
       "params": [
         {
@@ -176,8 +176,8 @@
     {
       "id": "wvJtoMpJa",
       "name": "geo_Line",
-      "x": -5,
-      "y": -759,
+      "x": 25,
+      "y": -541,
       "templateName": "geo_Line",
       "params": [
         {
@@ -199,8 +199,8 @@
     {
       "id": "ehGysH3I4",
       "name": "geo_ScalePts",
-      "x": 140,
-      "y": -627,
+      "x": 190,
+      "y": -763,
       "templateName": "Custom",
       "params": [
         {
@@ -221,25 +221,37 @@
     },
     {
       "id": "2fU3r80ya",
-      "name": "geo_RandomRotate",
-      "x": 144,
-      "y": -561,
+      "name": "geo_AssignAttrib",
+      "x": 261,
+      "y": -606,
       "templateName": "Custom",
       "params": [
         {
           "name": "data",
           "source": {
-            "id": "ehGysH3I4",
-            "port": "out"
+            "id": "2_GpAXia5",
+            "port": "outB"
           }
+        },
+        {
+          "name": "data type",
+          "value": "point"
+        },
+        {
+          "name": "float name",
+          "value": "rotate"
+        },
+        {
+          "name": "float value",
+          "value": 1.5707
         }
       ]
     },
     {
       "id": "5MfkUkZY9",
       "name": "geo_StyleAttribs",
-      "x": 51,
-      "y": -397,
+      "x": 53,
+      "y": -319,
       "templateName": "Custom",
       "params": [
         {
@@ -267,7 +279,7 @@
         {
           "name": "weight",
           "public": true,
-          "value": 0.018
+          "value": 0.02
         },
         {
           "name": "set weight",
@@ -278,8 +290,8 @@
     {
       "id": "9d5tb50Dp",
       "name": "color palette",
-      "x": 283,
-      "y": -488,
+      "x": 287,
+      "y": -396,
       "templateName": "Custom",
       "params": [
         {
@@ -311,6 +323,50 @@
             0.12156862745098039,
             1
           ]
+        }
+      ]
+    },
+    {
+      "id": "2_GpAXia5",
+      "name": "geo_BernoulliGate",
+      "x": 190,
+      "y": -687,
+      "templateName": "Custom",
+      "params": [
+        {
+          "name": "data",
+          "source": {
+            "id": "ehGysH3I4",
+            "port": "out"
+          }
+        },
+        {
+          "name": "probability",
+          "public": true,
+          "value": 0.55
+        }
+      ]
+    },
+    {
+      "id": "MgdQ9YbzQ",
+      "name": "geo_Merge",
+      "x": 190,
+      "y": -540,
+      "templateName": "geo_Merge",
+      "params": [
+        {
+          "name": "data0",
+          "source": {
+            "id": "2_GpAXia5",
+            "port": "outA"
+          }
+        },
+        {
+          "name": "data1",
+          "source": {
+            "id": "2fU3r80ya",
+            "port": "out"
+          }
         }
       ]
     }
